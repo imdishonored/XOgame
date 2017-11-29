@@ -4,3 +4,9 @@ c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\bin\Debug\tr
 c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\bin\Debug\try3.pdb
 c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\obj\Debug\try3.exe
 c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\obj\Debug\try3.pdb
+C:\Users\Dishonored\Documents\Visual Studio 2017\Projects\try3\XOgame\try3\try3\bin\Debug\try3.exe.config
+C:\Users\Dishonored\Documents\Visual Studio 2017\Projects\try3\XOgame\try3\try3\bin\Debug\try3.exe
+C:\Users\Dishonored\Documents\Visual Studio 2017\Projects\try3\XOgame\try3\try3\bin\Debug\try3.pdb
+C:\Users\Dishonored\Documents\Visual Studio 2017\Projects\try3\XOgame\try3\try3\obj\Debug\try3.csprojResolveAssemblyReference.cache
+C:\Users\Dishonored\Documents\Visual Studio 2017\Projects\try3\XOgame\try3\try3\obj\Debug\try3.exe
+C:\Users\Dishonored\Documents\Visual Studio 2017\Projects\try3\XOgame\try3\try3\obj\Debug\try3.pdb

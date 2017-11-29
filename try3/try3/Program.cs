@@ -8,41 +8,35 @@ namespace try3
 {
     class Program
     {
-        const int razr = 3;
-        static int[] a;
-        
+        const int sizeOfField = 3;
+        static int[] gameField;
+
         static void Draw()
         {
-            for (int i=0;i<razr;i++)
+            for (int i = 0; i < sizeOfField; i++)
             {
-                for (int j=0; j<razr; j++)
-                    switch (a[i*razr+j])
+                for (int j = 0; j < sizeOfField; j++)
+                    switch (gameField[i * sizeOfField + j])
                     {
-                        case -1:
-                            Console.Write("X ");
-                            break;
-                        case 0:
-                            Console.Write("O ");
-                            break;
-                        default:
-                            Console.Write(a[i * razr + j] + " ");
-                            break;
+                        case -1:    Console.Write("X ");    break;
+                        case 0:     Console.Write("O ");    break;
+                        default:    Console.Write(gameField[i * sizeOfField + j] + " ");    break;
                     }
                 Console.WriteLine();
             }
         }
 
-        static void activeUser(bool turn)
+        static void IsActiveUser(bool turn)
         {
-            int w = 0;
+            int enteredTurn = 0;
             do
             {
-                if (int.TryParse(Console.ReadLine(), out w) && w > 0 && w <= razr*razr && a[w - 1] > 0)
-                    a[w - 1] = turn ? -1 : 0;
+                if (int.TryParse(Console.ReadLine(), out enteredTurn) && enteredTurn > 0 && enteredTurn <= sizeOfField * sizeOfField && gameField[enteredTurn - 1] > 0)
+                    gameField[enteredTurn - 1] = turn ? -1 : 0;
                 else
-                    w = 0;
+                    enteredTurn = 0;
             }
-            while (w == 0);
+            while (enteredTurn == 0);
         }
         static void activeUserPC(bool turn)
         {
@@ -51,8 +45,8 @@ namespace try3
             do
             {
                 w = rnd.Next(0, 10);
-                if ( w > 0 && w <= razr * razr && a[w - 1] > 0)
-                    a[w - 1] = turn ? -1 : 0;
+                if (w > 0 && w <= sizeOfField * sizeOfField && gameField[w - 1] > 0)
+                    gameField[w - 1] = turn ? -1 : 0;
                 else
                     w = 0;
             }
@@ -64,83 +58,77 @@ namespace try3
             get
             {
                 bool result = false;
-                if (((a[0] == -1) && (a[1] == -1) && (a[2] == -1)) || ((a[3] == -1) && (a[4] == -1)
-                    && (a[5] == -1)) || ((a[6] == -1) && (a[7] == -1) && (a[8] == -1)) || ((a[0] == -1) && (a[3] == -1) && (a[6] == -1))
-                    || ((a[1] == -1) && (a[4] == -1) && (a[7] == -1)) || ((a[2] == -1) && (a[5] == -1) && (a[8] == -1))
-                    || ((a[0] == -1) && (a[4] == -1) && (a[8] == -1)) || ((a[2] == -1) && (a[4] == -1) && (a[6] == -1)))
+                if (((gameField[0] == -1) && (gameField[1] == -1) && (gameField[2] == -1)) || ((gameField[3] == -1) && (gameField[4] == -1)
+                    && (gameField[5] == -1)) || ((gameField[6] == -1) && (gameField[7] == -1) && (gameField[8] == -1)) || ((gameField[0] == -1) && (gameField[3] == -1) && (gameField[6] == -1))
+                    || ((gameField[1] == -1) && (gameField[4] == -1) && (gameField[7] == -1)) || ((gameField[2] == -1) && (gameField[5] == -1) && (gameField[8] == -1))
+                    || ((gameField[0] == -1) && (gameField[4] == -1) && (gameField[8] == -1)) || ((gameField[2] == -1) && (gameField[4] == -1) && (gameField[6] == -1)))
                 {
                     result = true;
                     Console.WriteLine("X wIN");
                 }
-                else if (((a[0] == 0) && (a[1] == 0) && (a[2] == 0)) || ((a[3] == 0) && (a[4] == 0)
-                    && (a[5] == 0)) || ((a[6] == 0) && (a[7] == 0) && (a[8] == 0)) || ((a[0] == 0) && (a[3] == 0) && (a[6] == 0))
-                    || ((a[1] == 0) && (a[4] == 0) && (a[7] == 0)) || ((a[2] == 0) && (a[5] == 0) && (a[8] == 0))
-                    || ((a[0] == 0) && (a[4] == 0) && (a[8] == 0)) || ((a[2] == 0) && (a[4] == 0) && (a[6] == 0)))
+                else if (((gameField[0] == 0) && (gameField[1] == 0) && (gameField[2] == 0)) || ((gameField[3] == 0) && (gameField[4] == 0)
+                    && (gameField[5] == 0)) || ((gameField[6] == 0) && (gameField[7] == 0) && (gameField[8] == 0)) || ((gameField[0] == 0) && (gameField[3] == 0) && (gameField[6] == 0))
+                    || ((gameField[1] == 0) && (gameField[4] == 0) && (gameField[7] == 0)) || ((gameField[2] == 0) && (gameField[5] == 0) && (gameField[8] == 0))
+                    || ((gameField[0] == 0) && (gameField[4] == 0) && (gameField[8] == 0)) || ((gameField[2] == 0) && (gameField[4] == 0) && (gameField[6] == 0)))
                 {
                     result = true;
                     Console.WriteLine("0 wIN");
                 }
-
-
                 return result;
             }
         }
 
         static void gameMode()
         {
-            a = new int[razr * razr] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            int s = razr * razr;
+            gameField = new int[sizeOfField * sizeOfField] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int turnsLeft = sizeOfField * sizeOfField;
             int mode = 0;
             bool turn = true;
-
-            
             Console.WriteLine("Choose player : press 1 for 1vs1 / press 2 for 1vsPC");
             mode = Convert.ToInt32(Console.ReadLine());
+
             if (mode == 1)
             {
                 Draw();
-                while (s > 0)
+                while (turnsLeft > 0)
                 {
-                    activeUser(turn);
+                    IsActiveUser(turn);
                     Draw();
                     if (Check)
                         break;
-
                     turn = !turn;
-                    s--;
+                    turnsLeft--;
                 }
 
                 for (int i = 0; i < 9; i++)
                 {
-                    Console.Write(a[i] + " ");
+                    Console.Write(gameField[i] + " ");
                 }
             }
             else if (mode == 2)
             {
                 Draw();
-                while (s>0)
+                while (turnsLeft > 0)
                 {
 
-                    if (s%2==1)
+                    if (turnsLeft % 2 == 1)
                     {
-                        activeUser(turn);
+                        IsActiveUser(turn);
                         Draw();
                         if (Check)
                             break;
                         turn = !turn;
-                        s--;
+                        turnsLeft--;
                     }
-                    else if (s%2==0)
+                    else if (turnsLeft % 2 == 0)
                     {
                         activeUserPC(turn);
                         Console.WriteLine();
                         Draw();
-                        
-
                         if (Check)
                             break;
                         turn = !turn;
-                        s--;
+                        turnsLeft--;
                     }
                 }
             }
@@ -149,16 +137,11 @@ namespace try3
                 Console.WriteLine("invalid, try choose correctly");
                 gameMode();
             }
-
         }
 
         static void Main(string[] args)
         {
             gameMode();
-
-
-
-
             Console.ReadKey();
         }
     }
