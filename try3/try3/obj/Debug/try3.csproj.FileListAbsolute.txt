@@ -1,0 +1,6 @@
+c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\obj\Debug\try3.csprojResolveAssemblyReference.cache
+c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\bin\Debug\try3.exe.config
+c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\bin\Debug\try3.exe
+c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\bin\Debug\try3.pdb
+c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\obj\Debug\try3.exe
+c:\users\dishonored\documents\visual studio 2017\Projects\try3\try3\obj\Debug\try3.pdb
