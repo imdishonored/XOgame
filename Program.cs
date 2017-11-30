@@ -16,41 +16,52 @@ namespace try3
             for (int i = 0; i < sizeOfField; i++)
             {
                 for (int j = 0; j < sizeOfField; j++)
+                {
                     switch (gameField[i * sizeOfField + j])
                     {
-                        case -1:    Console.Write("X ");    break;
-                        case 0:     Console.Write("O ");    break;
-                        default:    Console.Write(gameField[i * sizeOfField + j] + " ");    break;
+                        case -1: Console.Write("X "); break;
+                        case 0: Console.Write("O "); break;
+                        default: Console.Write(gameField[i * sizeOfField + j] + " "); break;
                     }
-                Console.WriteLine();
+                    Console.WriteLine();
+                }
             }
         }
 
         static void IsActiveUser(bool turn)
         {
-            int enteredTurn = 0;
+            int enteredValue = 0;
             do
             {
-                if (int.TryParse(Console.ReadLine(), out enteredTurn) && enteredTurn > 0 && enteredTurn <= sizeOfField * sizeOfField && gameField[enteredTurn - 1] > 0)
-                    gameField[enteredTurn - 1] = turn ? -1 : 0;
+                if (int.TryParse(Console.ReadLine(), out enteredValue) && enteredValue > 0 && enteredValue <= sizeOfField * sizeOfField && gameField[enteredValue - 1] > 0)
+                {
+                    gameField[enteredValue - 1] = turn ? -1 : 0;
+                }
                 else
-                    enteredTurn = 0;
+                {
+                    enteredValue = 0;
+                  }
             }
-            while (enteredTurn == 0);
+            while (enteredValue == 0);
         }
+
         static void activeUserPC(bool turn)
         {
-            int w = 0;
+            int randomizedValue = 0;
             Random rnd = new Random();
             do
             {
-                w = rnd.Next(0, 10);
-                if (w > 0 && w <= sizeOfField * sizeOfField && gameField[w - 1] > 0)
-                    gameField[w - 1] = turn ? -1 : 0;
+                randomizedValue = rnd.Next(0, 10);
+                if (randomizedValue > 0 && randomizedValue <= sizeOfField * sizeOfField && gameField[randomizedValue - 1] > 0)
+                {
+                    gameField[randomizedValue - 1] = turn ? -1 : 0;
+                }
                 else
-                    w = 0;
+                {
+                    randomizedValue = 0;
+                }
             }
-            while (w == 0);
+            while (randomizedValue == 0);
         }
 
         static bool Check
@@ -103,6 +114,7 @@ namespace try3
                 for (int i = 0; i < 9; i++)
                 {
                     Console.Write(gameField[i] + " ");
+                    // Вывод для себя, чтоб смотреть какие значения в каких элементах
                 }
             }
             else if (mode == 2)
@@ -110,7 +122,6 @@ namespace try3
                 Draw();
                 while (turnsLeft > 0)
                 {
-
                     if (turnsLeft % 2 == 1)
                     {
                         IsActiveUser(turn);
