@@ -9,7 +9,8 @@ namespace try3
     class Program
     {
         const int sizeOfField = 3;
-        static int[] gameField;
+        static XOCell[] gameField;
+        public enum XOCell {X, O, Empty};
 
         static void Draw()
         {
@@ -19,12 +20,12 @@ namespace try3
                 {
                     switch (gameField[i * sizeOfField + j])
                     {
-                        case -1: Console.Write("X "); break;
-                        case 0: Console.Write("O "); break;
-                        default: Console.Write(gameField[i * sizeOfField + j] + " "); break;
-                    }
-                    Console.WriteLine();
+                        case XOCell.X: Console.Write("X "); break;
+                        case XOCell.O:  Console.Write("O "); break;
+                        case XOCell.Empty: Console.Write("- "); break;
+                    }    
                 }
+                Console.WriteLine();
             }
         }
 
@@ -33,65 +34,59 @@ namespace try3
             int enteredValue = 0;
             do
             {
-                if (int.TryParse(Console.ReadLine(), out enteredValue) && enteredValue > 0 && enteredValue <= sizeOfField * sizeOfField && gameField[enteredValue - 1] > 0)
+                if (int.TryParse(Console.ReadLine(), out enteredValue) && enteredValue > 0 && enteredValue <= 9 && gameField[enteredValue - 1] == XOCell.Empty)
                 {
-                    gameField[enteredValue - 1] = turn ? -1 : 0;
+                    gameField[enteredValue - 1] = turn ? XOCell.X : XOCell.O;
                 }
                 else
                 {
                     enteredValue = 0;
-                  }
+                }
             }
             while (enteredValue == 0);
         }
 
-        static void activeUserPC(bool turn)
+        static void ActiveUserPC(bool turn)
         {
             int randomizedValue = 0;
             Random rnd = new Random();
             do
             {
                 randomizedValue = rnd.Next(0, 10);
-                if (randomizedValue > 0 && randomizedValue <= sizeOfField * sizeOfField && gameField[randomizedValue - 1] > 0)
+                if (randomizedValue > 0 && randomizedValue <= 9 && gameField[randomizedValue - 1] == XOCell.Empty)
                 {
-                    gameField[randomizedValue - 1] = turn ? -1 : 0;
+                    gameField[randomizedValue - 1] = turn ? XOCell.X : XOCell.O;
                 }
                 else
                 {
                     randomizedValue = 0;
                 }
             }
+
             while (randomizedValue == 0);
         }
 
-        static bool Check
+        static bool Check(bool turn)
         {
-            get
+            XOCell checkingValue;
+            checkingValue = turn ? XOCell.X : XOCell.O;
+            bool result = false;
+            if ( (((gameField[0] == gameField[1]) && (gameField[1] == gameField[2]))&& (gameField[2] == checkingValue) || (gameField[3] == gameField[4]) && (gameField[4] == gameField[5]) && (gameField[5] == checkingValue)
+                || (gameField[6] == gameField[7]) && (gameField[7] == gameField[8]) && (gameField[8] == checkingValue) || (gameField[0] == gameField[3]) && (gameField[3] == checkingValue) && (gameField[3] == gameField[6]) && (gameField[6] == checkingValue)
+                || (gameField[1] == gameField[4]) && (gameField[4] == gameField[7]) && (gameField[7] == checkingValue) || (gameField[2] == gameField[5]) && (gameField[5] == gameField[8]) && (gameField[8] == checkingValue) && (gameField[8] == checkingValue)
+                || (gameField[0] == gameField[4]) && (gameField[4] == gameField[8]) && (gameField[8] == checkingValue) || (gameField[2] == gameField[4]) && (gameField[4] == checkingValue) && (gameField[4] == gameField[6]) && (gameField[6] == checkingValue)))
             {
-                bool result = false;
-                if (((gameField[0] == -1) && (gameField[1] == -1) && (gameField[2] == -1)) || ((gameField[3] == -1) && (gameField[4] == -1)
-                    && (gameField[5] == -1)) || ((gameField[6] == -1) && (gameField[7] == -1) && (gameField[8] == -1)) || ((gameField[0] == -1) && (gameField[3] == -1) && (gameField[6] == -1))
-                    || ((gameField[1] == -1) && (gameField[4] == -1) && (gameField[7] == -1)) || ((gameField[2] == -1) && (gameField[5] == -1) && (gameField[8] == -1))
-                    || ((gameField[0] == -1) && (gameField[4] == -1) && (gameField[8] == -1)) || ((gameField[2] == -1) && (gameField[4] == -1) && (gameField[6] == -1)))
-                {
-                    result = true;
-                    Console.WriteLine("X wIN");
-                }
-                else if (((gameField[0] == 0) && (gameField[1] == 0) && (gameField[2] == 0)) || ((gameField[3] == 0) && (gameField[4] == 0)
-                    && (gameField[5] == 0)) || ((gameField[6] == 0) && (gameField[7] == 0) && (gameField[8] == 0)) || ((gameField[0] == 0) && (gameField[3] == 0) && (gameField[6] == 0))
-                    || ((gameField[1] == 0) && (gameField[4] == 0) && (gameField[7] == 0)) || ((gameField[2] == 0) && (gameField[5] == 0) && (gameField[8] == 0))
-                    || ((gameField[0] == 0) && (gameField[4] == 0) && (gameField[8] == 0)) || ((gameField[2] == 0) && (gameField[4] == 0) && (gameField[6] == 0)))
-                {
-                    result = true;
-                    Console.WriteLine("0 wIN");
-                }
-                return result;
+                Console.WriteLine(turn ? "X win" : "0 win");
+                result = true;
             }
+
+            return result;
         }
 
-        static void gameMode()
+        static void GameMode()
         {
-            gameField = new int[sizeOfField * sizeOfField] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            gameField = new XOCell[sizeOfField * sizeOfField] { XOCell.Empty, XOCell.Empty, XOCell.Empty,
+                XOCell.Empty, XOCell.Empty, XOCell.Empty, XOCell.Empty, XOCell.Empty, XOCell.Empty };
             int turnsLeft = sizeOfField * sizeOfField;
             int mode = 0;
             bool turn = true;
@@ -105,16 +100,13 @@ namespace try3
                 {
                     IsActiveUser(turn);
                     Draw();
-                    if (Check)
+                    if (Check(turn))
+                    {
                         break;
+                    }
+
                     turn = !turn;
                     turnsLeft--;
-                }
-
-                for (int i = 0; i < 9; i++)
-                {
-                    Console.Write(gameField[i] + " ");
-                    // Вывод для себя, чтоб смотреть какие значения в каких элементах
                 }
             }
             else if (mode == 2)
@@ -126,18 +118,25 @@ namespace try3
                     {
                         IsActiveUser(turn);
                         Draw();
-                        if (Check)
+                        if (Check(turn))
+                        {
                             break;
+                        }
+
                         turn = !turn;
                         turnsLeft--;
                     }
                     else if (turnsLeft % 2 == 0)
                     {
-                        activeUserPC(turn);
+                        ActiveUserPC(turn);
                         Console.WriteLine();
                         Draw();
-                        if (Check)
+                        if (Check(turn
+                            ))
+                        {
                             break;
+                        }
+
                         turn = !turn;
                         turnsLeft--;
                     }
@@ -146,13 +145,13 @@ namespace try3
             else
             {
                 Console.WriteLine("invalid, try choose correctly");
-                gameMode();
+                GameMode();
             }
         }
 
         static void Main(string[] args)
         {
-            gameMode();
+            GameMode();
             Console.ReadKey();
         }
     }
